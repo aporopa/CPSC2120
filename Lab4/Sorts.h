@@ -8,6 +8,9 @@
 #pragma once
 
 #include <vector>
+#include <ctime>
+#include <cstdlib>
+
 #include <algorithm>
 using namespace std;
 
@@ -50,16 +53,23 @@ std::vector<T> quickSort(std::vector<T> lst){
     //return if there is 1 or less elements
     if(lst.size() <= 1)
         return lst;
-
+\
     //Establish the pivot as the first element
     //and create two vectors
     //1. Values less than the pivot
     //2. Values greater than the pivot
-    T pivot = lst[0];
+    srand(time(0));
+    int value = rand() % lst.size();
+    T pivot = lst[value];
+
+    //Making sure that the pivot isnt the same
+    //in multiple recursive calls
+    lst.erase(lst.begin() + value);
+
     vector<T> rightSort;
     vector<T> leftSort;
 
-    for(int i = 1; i < lst.size(); i++){
+    for(int i = 0; i < lst.size(); i++){
         //Sorting into the "less than" vector
         if(lst[i] < pivot)
             leftSort.push_back(lst[i]);
